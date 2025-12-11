@@ -19,21 +19,31 @@ try {
     $user = $controller->create_user($username, $pswd1);
 
     if ($user) {
+        header("Content-Type: application/json; charset=UTF-8"); 
+        http_response_code(200);
         echo json_encode([
-            'resultado' => $user,
-            'exito' => true
-        ], JSON_UNESCAPED_UNICODE);
+            "success"   => true,
+            "code" => 200,
+            "message" => $user,
+        ]);
     } else {
+        header("Content-Type: application/json; charset=UTF-8"); 
+        http_response_code(400);
         echo json_encode([
-            'error' => 'No se ha creado correctamente el usuario',
-            'exito' => false
+            "success"   => false,
+            "code" => 400,
+            "message" => "No se ha podido crear el usuario.",
         ]);
     }
 } catch (Exception $e) {
     error_log($e->getMessage());
+
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(500);
     echo json_encode([
-        'error' => 'Error del servidor: ' . $e->getMessage(),
-        'exito' => false
+        "success"   => false,
+        "code" => 500,
+        "message" => $e->getMessage(),
     ]);
 }
 ?>

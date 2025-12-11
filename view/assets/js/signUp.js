@@ -30,20 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           data = JSON.parse(response.ok ? rawText : "{}");
         } catch (jsonError) {
-          throw new Error("Respuesta no es JSON válida: " + rawText);
+          throw new Error("Invalid JSON: " + rawText);
         }
 
-        if (data.resultado) {
+        if (data.success) {
           parrafo.innerText = "Usuario creado con éxito.";
           parrafo.style.color = "green";
           localStorage.setItem("actualProfile", JSON.stringify(data.resultado));
           window.location.href = "main.html";
-          console.log("Datos recibidos:", data.resultado);
+          console.log("Datos recibidos:", data.message);
         } else {
           parrafo.innerText =
             "El Usuario ya existe, elija otro nombre de usuario";
           parrafo.style.color = "red";
-          console.error("Respuesta del servidor:", data);
         }
       } catch (error) {
         parrafo.innerText = "Error al crear el usuario.";

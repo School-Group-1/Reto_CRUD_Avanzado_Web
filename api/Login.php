@@ -29,7 +29,7 @@ if (is_null($user)) {
         echo json_encode([
             "success"   => false,
             "code" => 400,
-            "message" => 'El nombre de usuario o contraseña son incorrectos.',
+            "message" => 'Username or password incorrect.',
         ]);
     } else {
         $_SESSION["user"] = $admin;

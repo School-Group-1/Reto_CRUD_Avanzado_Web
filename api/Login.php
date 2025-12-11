@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -19,12 +21,38 @@ $user = $controller->loginUser($username, $password);
 
 if (is_null($user)) {
     $admin = $controller->loginAdmin($username, $password);
+
     if (is_null($admin)) {
-        echo json_encode(["error" => 'El nombre de usuario o contraseña son incorrectos.'], JSON_UNESCAPED_UNICODE);
+
+        header("Content-Type: application/json; charset=UTF-8"); 
+        http_response_code(400);
+        echo json_encode([
+            "success"   => false,
+            "code" => 400,
+            "message" => 'El nombre de usuario o contraseña son incorrectos.',
+        ]);
     } else {
-        echo json_encode(["resultado" => $admin], JSON_UNESCAPED_UNICODE);
+        $_SESSION["user"] = $admin;
+        $_SESSION["role"] = "admin";
+
+        header("Content-Type: application/json; charset=UTF-8"); 
+        http_response_code(200);
+        echo json_encode([
+            "success"   => true,
+            "code" => 200,
+            "message" => $admin,
+        ]);
     }
 } else {
-    echo json_encode(["resultado" => $user], JSON_UNESCAPED_UNICODE);
+    $_SESSION["user"] = $user;
+    $_SESSION["role"] = "user";
+
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(200);
+    echo json_encode([
+        "success"   => true,
+        "code" => 200,
+        "message" => $user,
+    ]);
 }
 ?>

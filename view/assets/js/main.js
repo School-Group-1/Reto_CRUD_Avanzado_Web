@@ -358,7 +358,7 @@ async function get_all_users() {
   const response = await fetch("../../api/GetAllUsers.php");
   const data = await response.json();
 
-  return data["resultado"];
+  return data["data"];
 }
 
 async function delete_user_admin(id) {

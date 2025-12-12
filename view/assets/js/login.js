@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
       let data = await login(username, password);
 
       if (data) {
-        if (data["code"] == 400) {
+        if (!data["success"]) {
           alert("El nombre de usuario o la contraseña con incorrectas.");
         } else {
-          if (data["message"]) {
-            let string = JSON.stringify(data["message"]);
+          if (data["success"]) {
+            let string = JSON.stringify(data["data"]);
             let user = JSON.parse(string);
             console.log(user);
             localStorage.setItem("actualProfile", string);

@@ -13,10 +13,22 @@ $controller = new controller();
 $result = $controller->delete_user($id);
 
 if ($result) {
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(200);
     echo json_encode([
-        'result' => TRUE
-    ], JSON_UNESCAPED_UNICODE);
+        "success"   => true,
+        "code" => 200,
+        "message" => "User created successfully.",
+        "data" => TRUE
+    ]);
 } else {
-    echo json_encode(['error' => 'User not found']);
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(404);
+    echo json_encode([
+        "success"   => true,
+        "code" => 404,
+        "message" => "User not found.",
+        "data" => FALSE
+    ]);
 }
 ?>

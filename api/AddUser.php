@@ -24,7 +24,8 @@ try {
         echo json_encode([
             "success"   => true,
             "code" => 200,
-            "message" => $user,
+            "message" => "User created successfully.",
+            "data" => $user
         ]);
     } else {
         header("Content-Type: application/json; charset=UTF-8"); 
@@ -33,6 +34,7 @@ try {
             "success"   => false,
             "code" => 400,
             "message" => "No se ha podido crear el usuario.",
+            "data" => ""
         ]);
     }
 } catch (Exception $e) {
@@ -44,6 +46,7 @@ try {
         "success"   => false,
         "code" => 500,
         "message" => $e->getMessage(),
+        "data" => ""
     ]);
 }
 ?>

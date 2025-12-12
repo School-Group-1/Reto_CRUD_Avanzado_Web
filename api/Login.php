@@ -29,7 +29,8 @@ if (is_null($user)) {
         echo json_encode([
             "success"   => false,
             "code" => 400,
-            "message" => 'Username or password incorrect.',
+            "message" => "Username or password incorrect.",
+            "data" => ""
         ]);
     } else {
         $_SESSION["user"] = $admin;
@@ -40,7 +41,8 @@ if (is_null($user)) {
         echo json_encode([
             "success"   => true,
             "code" => 200,
-            "message" => $admin,
+            "message" => "Login successful for an Admin.",
+            "data" => $admin
         ]);
     }
 } else {
@@ -52,7 +54,8 @@ if (is_null($user)) {
     echo json_encode([
         "success"   => true,
         "code" => 200,
-        "message" => $user,
+        "message" => "Login successful for a User.",
+        "data" => $user
     ]);
 }
 ?>

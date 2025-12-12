@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               "red";
           }
         } catch (error) {
-          //DEBUG console.log(error);
+          console.log(error);
         }
       }
     });
@@ -319,7 +319,7 @@ async function modifyUser() {
         )}`
       );
       const data = await response.json();
-      //DEBUG console.log(data);
+      console.log(data);
 
       if (data.success) {
         document.getElementById("message").innerHTML = data.message;
@@ -348,7 +348,7 @@ async function modifyUser() {
         document.getElementById("message").style.color = "red";
       }
     } catch (error) {
-      //DEBUG console.log(error);
+      console.log(error);
     }
   }
 }
@@ -370,10 +370,10 @@ async function delete_user_admin(id) {
 
   const data = await response.json();
 
-  if (data.error) {
-    //DEBUG console.log("Error deleting user: ", data.error);
+  if (!data["success"]) {
+    console.log("Error deleting user: ", data["message"]);
   } else {
-    //DEBUG console.log("User deleted.");
+    console.log("User deleted.");
     row = document.getElementById(`user${id}`);
     if (row) row.remove();
   }
@@ -460,7 +460,7 @@ function openModifyAdminPopup() {
     current_account: actualProfile.CURRENT_ACCOUNT,
   };
 
-  //DEBUG console.log("User username: ", usuario.username);
+  console.log("User username: ", usuario.username);
 
   document.getElementById("usernameAdmin").value = usuario.username;
   document.getElementById("emailAdmin").value = usuario.email;
@@ -557,7 +557,7 @@ async function modifyAdmin() {
       );
 
       const data = await response.json();
-      //DEBUG console.log(data);
+      console.log(data);
 
       if (data.success) {
         document.getElementById("messageAdmin").innerHTML = data.message;
@@ -570,7 +570,7 @@ async function modifyAdmin() {
         actualProfile.TELEPHONE = telephone;
         actualProfile.CURRENT_ACCOUNT = current_account;
 
-        //DEBUG console.log("New actual profile:", JSON.stringify(actualProfile));
+        console.log("New actual profile:", JSON.stringify(actualProfile));
 
         localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
 
@@ -583,7 +583,7 @@ async function modifyAdmin() {
         document.getElementById("messageAdmin").style.color = "red";
       }
     } catch (error) {
-      //DEBUG console.log(error);
+      console.log(error);
     }
   }
 }
@@ -605,8 +605,8 @@ async function delete_user(id) {
 
   const data = await response.json();
 
-  if (data.error) {
-    //DEBUG console.log("Error deleting user: ", data.error);
+  if (!data["success"]) {
+    console.log("Error deleting user: ", data["message"]);
   } else {
     window.location.href = "login.html";
   }

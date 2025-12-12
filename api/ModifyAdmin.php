@@ -22,8 +22,22 @@ $controller = new controller();
 $modify = $controller->modifyAdmin($email, $username, $telephone, $name, $surname, $current_account, $profile_code);
 
 if ($modify) {
-    echo json_encode(['success' => true, 'message' => 'Admin modified correctly']);
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(200);
+    echo json_encode([
+        "success"   => true,
+        "code" => 200,
+        "message" => "Admin modified correctly.",
+        "data" => ""
+    ]);
 } else {
-    echo json_encode(['success' => false, 'error' => 'Error modifying the admin']);
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(500);
+    echo json_encode([
+        "success"   => false,
+        "code" => 500,
+        "message" => "Error modifying the admin.",
+        "data" => ""
+    ]);
 }
 ?>

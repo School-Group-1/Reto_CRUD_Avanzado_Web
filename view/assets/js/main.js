@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const data = await response.json();
 
-          if (data.success) {
+          if (data["success"]) {
             actualProfile.PSWD = newPassword;
             document.getElementById("messageSuccessPassword").innerHTML =
               "Password correctly changed";
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }, 3000);
           } else {
             document.getElementById("messageSuccessPassword").innerHTML =
-              data.error;
+              data["message"];
             document.getElementById("messageSuccessPassword").style.color =
               "red";
           }
@@ -256,7 +256,7 @@ async function modifyUser() {
   const gender = document.getElementById("genderUser").value;
   const card_no = document.getElementById("cardNumberUser").value;
 
-  /*DEBUG console.log(
+  console.log(
     "Esto son los datos de los textfields" + profile_code,
     name,
     surname,
@@ -265,7 +265,7 @@ async function modifyUser() {
     telephone,
     gender,
     card_no
-  );*/
+  );
 
   if (
     !name ||
@@ -321,8 +321,8 @@ async function modifyUser() {
       const data = await response.json();
       console.log(data);
 
-      if (data.success) {
-        document.getElementById("message").innerHTML = data.message;
+      if (data["success"]) {
+        document.getElementById("message").innerHTML = data["message"];
         document.getElementById("message").style.color = "green";
 
         actualProfile.NAME_ = name;
@@ -344,7 +344,7 @@ async function modifyUser() {
           localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
         }
       } else {
-        document.getElementById("message").innerHTML = data.error;
+        document.getElementById("message").innerHTML = data["message"];
         document.getElementById("message").style.color = "red";
       }
     } catch (error) {
@@ -498,7 +498,7 @@ async function modifyAdmin() {
     .value.replace(/\s/g, ""); //remove spaces
   const current_account = document.getElementById("currentAccountAdmin").value;
 
-  /*DEBUG console.log(
+  console.log(
     "Esto son los datos de los textfields" + profile_code,
     name,
     surname,
@@ -506,7 +506,7 @@ async function modifyAdmin() {
     username,
     telephone,
     current_account
-  );*/
+  );
 
   if (
     !name ||
@@ -559,8 +559,8 @@ async function modifyAdmin() {
       const data = await response.json();
       console.log(data);
 
-      if (data.success) {
-        document.getElementById("messageAdmin").innerHTML = data.message;
+      if (data["success"]) {
+        document.getElementById("messageAdmin").innerHTML = data["message"];
         document.getElementById("messageAdmin").style.color = "green";
 
         actualProfile.NAME_ = name;
@@ -574,12 +574,12 @@ async function modifyAdmin() {
 
         localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
 
-        /*DEBUG console.log(
+        console.log(
           "Local storage updated: ",
           localStorage.getItem("actualProfile")
-        );*/
+        );
       } else {
-        document.getElementById("messageAdmin").innerHTML = data.error;
+        document.getElementById("messageAdmin").innerHTML = data["error"];
         document.getElementById("messageAdmin").style.color = "red";
       }
     } catch (error) {

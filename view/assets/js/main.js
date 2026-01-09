@@ -2,12 +2,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   /******************************************************************************************************
    *****************************************VARIABLE DECLARATION*****************************************
    ******************************************************************************************************/
-
   //Loading the current user from localstorage, can be admin or user this is checked later
-  let profile = JSON.parse(localStorage.getItem("actualProfile"));
+  let profile = await check_user_logged_in();
+  console.log("PROFILE: ", profile);
 
   /* ----------HOME---------- */
   const homeBtn = document.getElementById("adjustData");
+  const logoutBtn = document.getElementById("logoutBtn");
 
   /* ----------USER POPUP---------- */
   const modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
@@ -34,10 +35,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ----------HOME---------- */
   //Opens a popup depending on if the profile is a user or admin
-  homeBtn.onclick = function () {
+  homeBtn.onclick = async function () {
     if (["CARD_NO"] in profile) {
-      profile = JSON.parse(localStorage.getItem("actualProfile"));
+      profile = await check_user_logged_in();
       document.getElementById("message").innerHTML = "";
+      const response = await fetch(`../../api/SetUser.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profile),
+      });
+      console.log("PROFILE: ", profile);
       openModifyUserPopup(profile);
     } else if (["CURRENT_ACCOUNT"] in profile) {
       refreshAdminTable();
@@ -47,14 +56,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
+  //Destroys session in PHP to log the user out
+  logoutBtn.onclick = function () {
+    log_user_out();
+  };
+
   /* ----------USER POPUP---------- */
   changePwdBtn.onclick = function () {
     changePwdModal.style.display = "block";
     resetPasswordModal();
   };
 
-  saveBtnUser.onclick = function () {
-    modifyUser();
+  saveBtnUser.onclick = async function () {
+    await modifyUser();
   };
 
   /* ----------ADMIN POPUP---------- */
@@ -112,9 +126,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       let actualProfile;
 
       if (["CARD_NO"] in profile) {
-        actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+        // actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+        const response = await fetch("../../api/GetUser.php", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        actualProfile = data["data"];
       } else if (["CURRENT_ACCOUNT"] in profile) {
-        actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+        // actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+        const response = await fetch("../../api/GetProfile.php", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        actualProfile = data["data"];
       }
 
       const profile_code = actualProfile["PROFILE_CODE"];
@@ -166,14 +192,28 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("messageSuccessPassword").innerHTML =
               "Password correctly changed";
             if (["CARD_NO"] in profile) {
-              console.log("IS A USER");
-              localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+              const response = await fetch(`../../api/SetUser.php`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(actualProfile),
+              });
+
+              let data = await response.json();
+              console.log("SET USER TEST: ", data["data"]);
             } else if (["CURRENT_ACCOUNT"] in profile) {
               console.log("IS AN ADMIN");
-              localStorage.setItem(
-                "actualProfile",
-                JSON.stringify(actualProfile)
-              );
+              const response = await fetch(`../../api/SetProfile.php`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(actualProfile),
+              });
+
+              let data = await response.json();
+              console.log("SET PROFILE TEST: ", data["data"]);
             }
 
             setTimeout(() => {
@@ -198,9 +238,19 @@ document.addEventListener("DOMContentLoaded", async () => {
  ******************************************************************************************************/
 
 /* ----------HOME---------- */
-function openModifyUserPopup(actualProfile) {
+async function openModifyUserPopup(actualProfile) {
   document.getElementById("message").innerHTML = "";
-  localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+  console.log("ACTUAL PROFILE: ", JSON.stringify(actualProfile));
+  response = await fetch(`../../api/SetUser.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(actualProfile),
+  });
+
+  data = await response.json();
+  console.log("SET USER TEST: ", data["data"]);
 
   const usuario = {
     profile_code: actualProfile.PROFILE_CODE,
@@ -231,7 +281,11 @@ function openModifyUserPopup(actualProfile) {
 
 /* ----------USER POPUP---------- */
 async function modifyUser() {
-  const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+  // const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+
+  const response = await fetch("../../api/GetUser.php");
+  const data = await response.json();
+  const actualProfile = data["data"];
 
   const usuario = {
     profile_code: actualProfile.PROFILE_CODE,
@@ -318,11 +372,11 @@ async function modifyUser() {
           card_no
         )}`
       );
-      const data = await response.json();
-      console.log(data);
+      const dataTest = await response.json();
+      console.log(dataTest);
 
-      if (data["success"]) {
-        document.getElementById("message").innerHTML = data["message"];
+      if (dataTest["success"]) {
+        document.getElementById("message").innerHTML = dataTest["message"];
         document.getElementById("message").style.color = "green";
 
         actualProfile.NAME_ = name;
@@ -333,15 +387,35 @@ async function modifyUser() {
         actualProfile.CARD_NO = card_no;
         actualProfile.GENDER = gender;
 
-        localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+        // localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+        let response = await fetch(`../../api/SetUser.php`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(actualProfile),
+        });
 
-        if (
-          ["CURRENT_ACCOUNT"] in
-          JSON.parse(localStorage.getItem("actualProfile"))
-        ) {
+        let data = await response.json();
+        console.log("SET USER TEST: ", data["data"]);
+
+        response = await fetch("../../api/GetProfile.php", {
+          method: "GET",
+          credentials: "include",
+        });
+        data = await response.json();
+
+        if (["CURRENT_ACCOUNT"] in data["data"]) {
           refreshAdminTable();
         } else {
-          localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
+          // localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
+          const response = await fetch(`../../api/SetProfile.php`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(actualProfile),
+          });
         }
       } else {
         document.getElementById("message").innerHTML = data["message"];
@@ -444,9 +518,15 @@ async function refreshAdminTable() {
   }
 }
 
-function openModifyAdminPopup() {
+async function openModifyAdminPopup() {
   document.getElementById("messageAdmin").innerHTML = "";
-  const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+  const response = await fetch("../../api/GetProfile.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+  const actualProfile = data["data"];
+  // const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
   let modifyAdminPopup = document.getElementById("modifyAdminPopup");
 
   const usuario = {
@@ -474,8 +554,16 @@ function openModifyAdminPopup() {
   modifyAdminPopup.style.display = "flex";
 }
 
+async function openModifyUserPopupAdmin(user) {}
+
 async function modifyAdmin() {
-  const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+  const response = await fetch("../../api/GetProfile.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+  const actualProfile = data["data"];
+  // const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
 
   const usuario = {
     profile_code: actualProfile.PROFILE_CODE,
@@ -572,12 +660,17 @@ async function modifyAdmin() {
 
         console.log("New actual profile:", JSON.stringify(actualProfile));
 
-        localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
+        // localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
 
-        console.log(
-          "Local storage updated: ",
-          localStorage.getItem("actualProfile")
-        );
+        const response = await fetch(`../../api/SetProfile.php`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(actualProfile),
+        });
+
+        console.log("Local storage updated: ", response.json()["data"]);
       } else {
         document.getElementById("messageAdmin").innerHTML = data["error"];
         document.getElementById("messageAdmin").style.color = "red";
@@ -608,6 +701,29 @@ async function delete_user(id) {
   if (!data["success"]) {
     console.log("Error deleting user: ", data["message"]);
   } else {
+    window.location.href = "login.html";
+  }
+}
+
+async function check_user_logged_in() {
+  const response = await fetch("../../api/GetProfile.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+
+  if (!data["success"]) {
+    window.location.href = "login.html";
+  } else {
+    return data["data"];
+  }
+}
+
+async function log_user_out() {
+  const response = await fetch("../../api/Logout.php");
+  const data = await response.json();
+
+  if (data["success"]) {
     window.location.href = "login.html";
   }
 }

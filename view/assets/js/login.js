@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  check_user_logged_in();
+
   document
     .getElementById("loginForm")
     .addEventListener("submit", async function (e) {
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let string = JSON.stringify(data["data"]);
             let user = JSON.parse(string);
             console.log(user);
-            localStorage.setItem("actualProfile", string);
+            // localStorage.setItem("actualProfile", string);
             window.location.href = "main.html";
           }
         }
@@ -38,5 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let data = await response.json();
 
     return data;
+  }
+
+  async function check_user_logged_in() {
+    const response = await fetch("../../api/GetProfile.php", {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await response.json();
+
+    if (data["success"]) {
+      window.location.href = "main.html";
+    }
   }
 });

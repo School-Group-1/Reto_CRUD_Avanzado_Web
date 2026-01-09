@@ -303,7 +303,8 @@ async function modifyUser() {
   if (!hasChanges()) {
     document.getElementById("message").innerHTML = "No changes detected";
     document.getElementById("message").style.color = "red";
-  } else {
+
+  } //else {
     try {
       const response = await fetch(
         `../../api/ModifyUser.php?profile_code=${encodeURIComponent(
@@ -344,13 +345,14 @@ async function modifyUser() {
           localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
         }
       } else {
+      
         document.getElementById("message").innerHTML = data["message"];
         document.getElementById("message").style.color = "red";
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  //}
 }
 
 /* ----------ADMIN POPUP---------- */

@@ -143,29 +143,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         actualProfile = data["data"];
       }
 
-      const profile_code = actualProfile["PROFILE_CODE"];
-      const userPassword = actualProfile["PSWD"];
+      /*const profile_code = actualProfile["PROFILE_CODE"];
+      const userPassword = actualProfile["PSWD"];*/
       const password = document.getElementById("currentPassword").value;
       const newPassword = document.getElementById("newPassword").value;
       const confirmPassword =
         document.getElementById("confirmNewPassword").value;
 
       let hasErrors = false;
-
-      if (userPassword != password) {
-        document.getElementById("messageOldPassword").innerHTML =
-          "That is not your current password";
-        hasErrors = true;
-        console.log("CURRENT PASSWORD: ", userPassword);
-        console.log("INPUT: ", password);
-      }
-
-      if (userPassword == newPassword) {
-        document.getElementById("messageWrongPassword").innerHTML =
-          "Password used before, try another one";
-        hasErrors = true;
-      }
-
+      
       if (newPassword != confirmPassword) {
         document.getElementById("messageWrongPassword").innerHTML =
           "The passwords are not the same";
@@ -174,18 +160,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (!hasErrors) {
         try {
+          console.log("Enviando datos:", { password, newPassword });
           const response = await fetch("../../api/ModifyPassword.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              profile_code: profile_code,
-              password: newPassword,
+              password: password,
+              newPassword: newPassword,
             }),
           });
 
-          const data = await response.json();
+          console.log("Status:", response.status); 
+          console.log("Headers:", [...response.headers.entries()]); 
+          
+          const text = await response.text(); 
+          console.log("Raw response:", text);
 
           if (data["success"]) {
             actualProfile.PSWD = newPassword;

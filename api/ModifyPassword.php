@@ -1,4 +1,8 @@
 <?php
+session_start();
+var_dump($_SESSION); 
+exit;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -8,12 +12,13 @@ header('Content-Type: application/json; charset=utf-8');
 require_once '../controller/controller.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
-$profile_code = $input['profile_code'] ?? '';
 $password = $input['password'] ?? '';
-
+$newPassword = $input['newPassword'] ?? '';
+$sessionActualP = $_SESSION["user"]["PSWD"];
+$profile_code = $_SESSION["user"]["PROFILE_CODE"];
 
 $controller = new controller();
-$modify = $controller->modifyPassword($profile_code, $password);
+$modify = $controller->modifyPassword($password, $newPassword, $sessionActualP, $profile_code);
 
 if ($modify) {
     header("Content-Type: application/json; charset=UTF-8"); 

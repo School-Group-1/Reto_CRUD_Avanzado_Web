@@ -200,29 +200,15 @@ private function migrateToHash($profile_code, $password)
         }
     }
 
-    public function modifyPassword($profile_code, $password)
+    public function modifyPassword($password, $newPassword, $sessionActualP, $profile_code)
     {
-
-        if (!password_verify($password, $result['PSWD'])) {
-            return null;
-        } 
-    
-        if ($password === $result['PSWD']) {
-            $this->migrateToHash($result['PROFILE_CODE'], $password);
-        
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result;
+        if (!password_verify($password, $sessionActualP)) {
+            return false;
         }
-
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
     
-        $query = "UPDATE PROFILE_ SET PSWD = :password_ WHERE PROFILE_CODE = :profile_code";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindparam(':profile_code', $profile_code);
-        $stmt->bindparam(':password_', $passwordHash); 
+        $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
 
-        return $stmt->execute();
+        return $this->migrateToHash($profile_code, $newHash);
     }
 }
 ?>

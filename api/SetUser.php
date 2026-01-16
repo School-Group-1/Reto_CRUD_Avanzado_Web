@@ -11,9 +11,10 @@
     header("Content-Type: application/json");
 
     $data = json_decode(file_get_contents("php://input"), true);
+
     $_SESSION["user"] = $data;
 
-    $user = array_diff_key($_SESSION["user"], array_flip(["PSWD"]));
+    $user = array_diff_key($data, array_flip(["PSWD"]));
 
     header("Content-Type: application/json; charset=UTF-8"); 
     http_response_code(200);

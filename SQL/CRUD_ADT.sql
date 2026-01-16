@@ -26,11 +26,11 @@ FOREIGN KEY (PROFILE_CODE) REFERENCES PROFILE_(PROFILE_CODE) ON UPDATE CASCADE O
 
 
 INSERT INTO PROFILE_ (PROFILE_CODE, EMAIL, USER_NAME, PSWD, TELEPHONE, NAME_, SURNAME) VALUES
-(1, 'juan.perez@email.com', 'juanP', '$2y$10$8K9p/S3Z7z4Wp.n9fR7uGeJvL6vU1mX6mU5u4.E5VfR9qYy8z2G1m', 611223344, 'Juan', 'Pérez'),
-(2, 'maria.garcia@email.com', 'mariag', '$2y$10$8K9p/S3Z7z4Wp.n9fR7uGeJvL6vU1mX6mU5u4.E5VfR9qYy8z2G1m', 622334455, 'María', 'García'),
-(3, 'carlos.lopez@email.com', 'carlosl', '$2y$10$8K9p/S3Z7z4Wp.n9fR7uGeJvL6vU1mX6mU5u4.E5VfR9qYy8z2G1m', 633445566, 'Carlos', 'López'),
-(4, 'ana.martinez@email.com', 'anam', '$2y$10$8K9p/S3Z7z4Wp.n9fR7uGeJvL6vU1mX6mU5u4.E5VfR9qYy8z2G1m', 644556677, 'Ana', 'Martínez'),
-(5, 'pedro.rodriguez@email.com', 'pedror', '$2y$10$8K9p/S3Z7z4Wp.n9fR7uGeJvL6vU1mX6mU5u4.E5VfR9qYy8z2G1m', 655667788, 'Pedro', 'Rodríguez');
+(1, 'juan.perez@email.com', 'juanP', '1234', 611223344, 'Juan', 'Pérez'),
+(2, 'maria.garcia@email.com', 'mariag', '1234', 622334455, 'María', 'García'),
+(3, 'carlos.lopez@email.com', 'carlosl', '1234', 633445566, 'Carlos', 'López'),
+(4, 'ana.martinez@email.com', 'anam', '1234', 644556677, 'Ana', 'Martínez'),
+(5, 'pedro.rodriguez@email.com', 'pedror', '1234', 655667788, 'Pedro', 'Rodríguez');
 
 
 INSERT INTO USER_ (PROFILE_CODE, GENDER, CARD_NO) VALUES

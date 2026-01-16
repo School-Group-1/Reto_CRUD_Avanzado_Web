@@ -18,7 +18,7 @@ class UserModel
         $this->conn = $db;
     }
 
-    public function loginUser($username, $password)
+public function loginUser($username, $password)
 {
     $query = "SELECT * FROM PROFILE_ P JOIN USER_ U ON P.PROFILE_CODE = U.PROFILE_CODE
               WHERE USER_NAME = :username";
@@ -28,30 +28,85 @@ class UserModel
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result && password_verify($password, $result['PSWD'])) {
+    if (!$result) {
+        return null; 
+    }
+    
+    if (password_verify($password, $result['PSWD'])) {
+       /* if (password_needs_rehash($result['PSWD'], PASSWORD_BCRYPT)) {
+            $this->updatePasswordHash($result['PROFILE_CODE'], $password);
+        }*/
         return $result;
-    } 
+    }
+    
+    if ($password === $result['PSWD']) {
+        $this->migrateToHash($result['PROFILE_CODE'], $password);
+        
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     return null;
 }
 
+private function migrateToHash($profile_code, $password)
+{
+    $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    
+    $query = "UPDATE PROFILE_ SET PSWD = :password WHERE PROFILE_CODE = :profile_code";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':profile_code', $profile_code);
+    $stmt->bindParam(':password', $passwordHash);
+    
+    return $stmt->execute();
+}
+
+/*private function updatePasswordHash($profile_code, $password)
+{
+    $newHash = password_hash($password, PASSWORD_BCRYPT);
+    
+    $query = "UPDATE PROFILE_ SET PSWD = :password WHERE PROFILE_CODE = :profile_code";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':profile_code', $profile_code);
+    $stmt->bindParam(':password', $newHash);
+    
+    return $stmt->execute();
+}*/
+
     public function loginAdmin($username, $password)
-    {
-        $query = " SELECT * FROM PROFILE_ P JOIN ADMIN_ A ON P.PROFILE_CODE=A.PROFILE_CODE
-        WHERE USER_NAME = :username";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":username", $username);
-        $stmt->execute();
+{
+    $query = "SELECT * FROM PROFILE_ P JOIN ADMIN_ A ON P.PROFILE_CODE = A.PROFILE_CODE
+              WHERE USER_NAME = :username";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result && password_verify($password, $result['PSWD'])) {
-        return $result;
-        }
-            return null;
+    if (!$result) {
+        return null;
     }
+    
+    if (password_verify($password, $result['PSWD'])) {
+        /*if (password_needs_rehash($result['PSWD'], PASSWORD_BCRYPT)) {
+            $this->updatePasswordHash($result['PROFILE_CODE'], $password);
+        }*/
+        return $result;
+    }
+    
+    if ($password === $result['PSWD']) {
+        $this->migrateToHash($result['PROFILE_CODE'], $password);
+        
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    return null;
+}
 
     public function create_user($username, $pswd1)
-    {
+{
     $checkQuery = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
     $checkStmt = $this->conn->prepare($checkQuery);
     $checkStmt->bindValue(1, $username);
@@ -60,6 +115,7 @@ class UserModel
     if ($checkStmt->rowCount() > 0) {
         return null;
     }
+
     $passwordHash = password_hash($pswd1, PASSWORD_BCRYPT);
 
     $createQuery = "CALL RegistrarUsuario(?, ?)";
@@ -70,7 +126,7 @@ class UserModel
     
     $result = $createStmt->fetch(PDO::FETCH_ASSOC);
     return $result;
-    }
+}
 
 
     public function get_all_users()
@@ -146,6 +202,19 @@ class UserModel
 
     public function modifyPassword($profile_code, $password)
     {
+
+        if (!password_verify($password, $result['PSWD'])) {
+            return null;
+        } 
+    
+        if ($password === $result['PSWD']) {
+            $this->migrateToHash($result['PROFILE_CODE'], $password);
+        
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
     
         $query = "UPDATE PROFILE_ SET PSWD = :password_ WHERE PROFILE_CODE = :profile_code";

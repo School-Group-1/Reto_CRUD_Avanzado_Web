@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-background-color: #f1f1f1;
+  --sub-background-color: #ffffff;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: var(--main-background-color);
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10%;
+  padding: 40px;
+  background-color: var(--sub-background-color);
+}
+
+.form {
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/*Space between elements*/
+.form > * + * {
+  margin-top: 0.7rem;
+}
+
+.form h1 {
+  text-align: center;
+}
+
+.form label {
+  display: block;
+  font-weight: bold;
+}
+
+.form input {
+  width: 100%;
+  padding: 3%;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.form button {
+  width: 100%;
+  padding: 3%;
+  background-color: #222020;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #005fa3;
+}
+
+.link {
+  align-self: center;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.link a {
+  color: #555;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.link a:hover {
+  text-decoration: underline;
+}

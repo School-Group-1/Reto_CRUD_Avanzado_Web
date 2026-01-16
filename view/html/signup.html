@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyWebsite SignUp</title>
-    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/login_signup.css" />
     <script src="../assets/js/signUp.js"></script>
   </head>
   <body>
     <main class="container">
-      <section class="leftPanel">
-        <img src="../assets/img/mountainVertical.jpg" alt="Imagen de fondo" />
-      </section>
-      <section class="rightPanel">
-        <form class="loginForm" id="signupForm">
-          <h2>Welcome back!</h2>
+      <div class="card">
+        <form class="form" id="signupForm">
+          <h1>Sign up now!</h1>
           <label for="username"></label>
           <input
             type="text"
@@ -39,14 +36,13 @@
             placeholder="Repeat password"
             required
           />
-          <button type="submit" class="SignUpbutton">SignUp</button>
-          <p class="registerLink">
+          <button type="submit" class="SignUpbutton">Sign Up</button>
+          <p class="link">
             Already have an account? <a href="login.html">Log In</a>
           </p>
-          <br />
           <h5 id="mensaje"></h5>
         </form>
-      </section>
+      </div>
     </main>
   </body>
 </html>

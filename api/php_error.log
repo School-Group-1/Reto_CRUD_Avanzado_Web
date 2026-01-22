@@ -1,0 +1,71 @@
+[16-Jan-2026 10:52:52 Europe/Berlin] PHP Warning:  Undefined global variable $_SESSION in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:52:52 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:52:52 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:52:52 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 10:53:05 Europe/Berlin] PHP Warning:  Undefined global variable $_SESSION in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:53:05 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:53:05 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 10:53:05 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 11:57:21 Europe/Berlin] PHP Warning:  Undefined global variable $_SESSION in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:57:21 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:57:21 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:57:21 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 11:59:44 Europe/Berlin] PHP Warning:  Undefined global variable $_SESSION in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:59:44 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:59:44 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 11:59:44 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 12:01:33 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 12:01:33 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 12:01:45 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[16-Jan-2026 12:01:45 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 207
+[16-Jan-2026 12:06:06 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:06:06 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:10:43 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:10:43 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:11:17 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:11:17 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:11:18 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:11:18 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:13:28 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:13:28 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:36:48 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:36:48 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '123')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '123', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:37:43 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:37:43 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserModel::modifyPassword(), 2 passed in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php on line 54 and exactly 4 expected in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php:203
+Stack trace:
+#0 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\controller\controller.php(54): UserModel->modifyPassword('1234', '12')
+#1 C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php(19): controller->modifyPassword('1234', '12', NULL, 1)
+#2 {main}
+  thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
+[16-Jan-2026 12:41:29 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
+[16-Jan-2026 12:41:29 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205

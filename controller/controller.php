@@ -24,11 +24,6 @@ class controller
         return $this->UserModel->loginAdmin($username, $password);
     }
 
-    public function checkUser($username, $password)
-    {
-        return $this->UserModel->checkUser($username, $password);
-    }
-
     public function create_user($username, $pswd1)
     {
         return $this->UserModel->create_user($username, $pswd1);
@@ -54,9 +49,9 @@ class controller
         return $this->UserModel->delete_user($id);
     }
 
-    public function modifyPassword($profile_code, $password)
+    public function modifyPassword($password, $newPassword, $sessionActualP, $profile_code)
     {
-        return $this->UserModel->modifyPassword($profile_code, $password);
+        return $this->UserModel->modifyPassword($password, $newPassword, $sessionActualP, $profile_code);
     }
 }
 ?>

@@ -23,7 +23,6 @@ if (is_null($user)) {
     $admin = $controller->loginAdmin($username, $password);
 
     if (is_null($admin)) {
-
         header("Content-Type: application/json; charset=UTF-8"); 
         http_response_code(400);
         echo json_encode([
@@ -33,8 +32,7 @@ if (is_null($user)) {
             "data" => ""
         ]);
     } else {
-        $_SESSION["user"] = $admin;
-        $_SESSION["role"] = "admin";
+        $_SESSION["profile"] = $admin;
 
         header("Content-Type: application/json; charset=UTF-8"); 
         http_response_code(200);
@@ -46,8 +44,7 @@ if (is_null($user)) {
         ]);
     }
 } else {
-    $_SESSION["user"] = $user;
-    $_SESSION["role"] = "user";
+    $_SESSION["profile"] = $user;
 
     header("Content-Type: application/json; charset=UTF-8"); 
     http_response_code(200);

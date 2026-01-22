@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  check_user_logged_in();
+
   document
     .getElementById("signupForm")
     .addEventListener("submit", async function (e) {
@@ -24,29 +26,46 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify({ username, pswd1 }),
         });
 
-        const rawText = await response.text();
+        let data = await response.json();
+        console.log(data);
 
-        let data;
-        try {
-          data = JSON.parse(response.ok ? rawText : "{}");
-        } catch (jsonError) {
-          throw new Error("Invalid JSON: " + rawText);
-        }
-
-        if (data.success) {
+        if (data["success"]) {
           parrafo.innerText = "Usuario creado con éxito.";
           parrafo.style.color = "green";
-          localStorage.setItem("actualProfile", JSON.stringify(data.resultado));
+
+          const response = await fetch(`../../api/SetProfile.php`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data["data"]),
+          });
+
+          data = await response.json();
+
           window.location.href = "main.html";
-          console.log("Datos recibidos:", data.message);
+          console.log("Datos recibidos:", data["message"]);
         } else {
           parrafo.innerText =
             "El Usuario ya existe, elija otro nombre de usuario";
           parrafo.style.color = "red";
         }
       } catch (error) {
+        console.log(error);
         parrafo.innerText = "Error al crear el usuario.";
         parrafo.style.color = "red";
       }
     });
+
+  async function check_user_logged_in() {
+    const response = await fetch("../../api/GetProfile.php", {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await response.json();
+
+    if (data["success"]) {
+      window.location.href = "main.html";
+    }
+  }
 });

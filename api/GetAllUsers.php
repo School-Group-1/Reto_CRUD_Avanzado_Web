@@ -11,10 +11,22 @@ $controller = new controller();
 $users = $controller->get_all_users();
 
 if ($users) {
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(200);
     echo json_encode([
-        'resultado' => $users
-    ], JSON_UNESCAPED_UNICODE);
+        "success"   => true,
+        "code" => 200,
+        "message" => "Users retrieved successfully",
+        "data" => $users,
+    ]);
 } else {
-    echo json_encode(['error' => 'No se ha encontrado usuarios']);
+    header("Content-Type: application/json; charset=UTF-8"); 
+    http_response_code(404);
+    echo json_encode([
+        "success"   => false,
+        "code" => 404,
+        "message" => "Users do not found",
+        "data" => "",
+    ]);
 }
 ?>

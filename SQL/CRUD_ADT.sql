@@ -60,3 +60,39 @@ BEGIN
  END //
 
 DELIMITER ; 
+
+CREATE TABLE COMPANY_(
+Url text,
+C_name varchar(30),
+NIF varchar(9)not null primary key,
+location text);
+
+CREATE TABLE PRODUCT_(
+Price double,
+Product_type enum('Cloth', 'Shoe'),
+Descript text,
+Product_ID varchar(15) not null primary key,
+Img text,
+NIF varchar(9)not null,
+foreign key (NIF) references COMPANY_(NIF)
+);
+
+CREATE TABLE SIZE_(
+Stock int,
+label varchar (10),
+Product_ID varchar(15) not null,
+foreign key (Product_ID) references PRODUCT_(Product_ID));
+
+Insert into COMPANY_ (Url, C_name, NIF, location) VALUES
+("https://www.youtube.com/watch?v=2NbBi5I7DB8", "Yara", "123456789", "Palermo, Sizilia"),("https://www.youtube.com/watch?v=2NbBi5I7DB8", "Ñoldan", "321654987", "Wailuku, Hawái");
+
+Insert into PRODUCT_ (Price, Product_type, Descript, Product_ID, Img, NIF) Values
+(15.99, "Cloth", "a blu shert","aaa111","//view/assets/img/baldinkent.png","123456789"),(20.99, "Shoe", "a blu sue","111aaa","//view/assets/imgYara_shoe.png","123456789"),
+(14.59, "Cloth", "a cul shert", "bbb222","//view/assets/img/Negra_tengo_el_alma.png","321654987"),(14.59, "Shoe", "a cul sue", "222bbb","//view/assets/img/Ñoldan.png","321654987");
+
+Insert into SIZE_(Stock,label,Product_ID)Values
+(0,"XXL","aaa111"),(4,"XL","aaa111"),(5,"L","aaa111"),(8,"M","aaa111"),(9,"S","aaa111"),(0,"XS","aaa111"),
+(2,"XXL","aaa111"),(0,"XL","aaa111"),(3,"L","aaa111"),(4,"M","aaa111"),(6,"S","aaa111"),(0,"XS","aaa111"),
+(2,"XXL","aaa111"),(0,"XL","aaa111"),(0,"L","aaa111"),(7,"M","aaa111"),(0,"S","aaa111"),(9,"XS","aaa111"),
+(0,"XXL","aaa111"),(0,"XL","aaa111"),(3,"L","aaa111"),(7,"M","aaa111"),(0,"S","aaa111"),(1,"XS","aaa111");
+

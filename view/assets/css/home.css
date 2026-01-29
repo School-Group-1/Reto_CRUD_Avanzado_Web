@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-background-color: #f1f1f1;
+  --sub-background-color: #ffffff;
+  --company-color: #0f954a;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  box-sizing: border-box;
+}
+
+header {
+  width: 100vw;
+  height: 5vh;
+  position: fixed;
+  background-color: var(--sub-background-color);
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+header div {
+  padding: 10px;
+}
+
+.logo {
+    height: 100%;
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.headerButtons div {
+  width: auto;
+}
+
+.headerButtons svg {
+  height: 40px;
+  cursor: pointer;
+}
+
+nav {
+  width: 100vw;
+  height: 70vh;
+  background-image: url("../img/banner.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.navText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--sub-background-color);
+    font-size: 350%;
+    padding-left: 20%;
+}
+
+.navText span {
+    color: var(--company-color);
+}
+
+.navText button {
+    margin-top: 2%;
+    width: 25%;
+    height: 10%;
+    background-color: var(--company-color);
+    color: var(--sub-background-color);
+    font-weight: 600;
+    font-size: 75%;
+    border: 0px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+main {
+  background-color: var(--main-background-color);
+  width: 100vw;
+  height: 100vh;
+}
+
+footer {
+  background-color: black;
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .navText {
+    font-size: 50%;
+  }
+}
+/* Pantallas medianas (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .navText {
+    font-size: 150%;
+  }
+}
+/* Pantallas grandes (escritorios) */
+@media (min-width: 1200px) {
+  .navText {
+    font-size: 350%;
+  }
+}

@@ -69,3 +69,33 @@ Stack trace:
   thrown in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 203
 [16-Jan-2026 12:41:29 Europe/Berlin] PHP Warning:  Undefined array key "PSWD" in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\api\ModifyPassword.php on line 15
 [16-Jan-2026 12:41:29 Europe/Berlin] PHP Deprecated:  password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in C:\Users\kssal\XAMPP\htdocs\DW\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 205
+[25-Jan-2026 14:04:14 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:14 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:15 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:15 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:16 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:18 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:04:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[25-Jan-2026 14:07:09 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\model\UserModel.php:25
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php(19): UserModel->loginUser('juanP', '1234')
+#1 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(20): controller->loginUser('juanP', '1234')
+#2 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 25

@@ -210,5 +210,39 @@ private function migrateToHash($profile_code, $password)
 
         return $this->migrateToHash($profile_code, $newHash);
     }
+
+    public function get_all_products()
+    {
+        $query = "SELECT * FROM PRODUCT";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function get_product_sizes($id)
+    {
+        $query = "SELECT * FROM SIZE S JOIN PRODUCT P ON P.PRODUCT_ID = S.PRODUCT_ID WHERE P.PRODUCT_ID = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function get_product_company($id)
+    {
+        $query = "SELECT * FROM COMPANY C JOIN PRODUCT P ON P.COMPANY_ID = C.COMPANY_ID WHERE P.COMPANY_ID = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }
 ?>

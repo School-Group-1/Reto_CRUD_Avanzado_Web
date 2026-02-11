@@ -53,5 +53,20 @@ class controller
     {
         return $this->UserModel->modifyPassword($password, $newPassword, $sessionActualP, $profile_code);
     }
+
+    public function get_all_products()
+    {
+        return $this->UserModel->get_all_products();
+    }
+
+    public function get_product_sizes($id)
+    {
+        return $this->UserModel->get_product_sizes($id);
+    }
+
+    public function get_product_company($id)
+    {
+        return $this->UserModel->get_product_company($id);
+    }
 }
 ?>

@@ -99,3 +99,27 @@ Stack trace:
 #1 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(20): controller->loginUser('juanP', '1234')
 #2 {main}
   thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\model\UserModel.php on line 25
+[30-Jan-2026 08:19:49 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:19:49 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:43 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:44 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:44 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:52 Europe/Berlin] PHP Warning:  require_once(../Config/Database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2
+[30-Jan-2026 08:20:52 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../Config/Database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php:2
+Stack trace:
+#0 C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\api\Login.php(13): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\Reto_CRUD_Avanzado_Web\controller\controller.php on line 2

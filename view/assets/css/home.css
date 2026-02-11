@@ -21,7 +21,7 @@ body {
 
 header {
   width: 100vw;
-  height: 5vh;
+  height: 7vh;
   position: fixed;
   background-color: var(--sub-background-color);
   margin: 0;
@@ -36,7 +36,7 @@ header div {
 }
 
 .logo {
-    height: 100%;
+  height: 100%;
 }
 
 .headerButtons {
@@ -69,40 +69,113 @@ nav {
 }
 
 .navText {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--sub-background-color);
-    font-size: 350%;
-    padding-left: 20%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--sub-background-color);
+  font-size: 300%;
+  padding-left: 15%;
 }
 
 .navText span {
-    color: var(--company-color);
+  color: var(--company-color);
 }
 
 .navText button {
-    margin-top: 2%;
-    width: 25%;
-    height: 10%;
-    background-color: var(--company-color);
-    color: var(--sub-background-color);
-    font-weight: 600;
-    font-size: 75%;
-    border: 0px;
-    border-radius: 50px;
-    cursor: pointer;
+  margin-top: 2%;
+  width: 25%;
+  height: 10%;
+  background-color: var(--company-color);
+  color: var(--sub-background-color);
+  font-weight: 600;
+  font-size: 75%;
+  border: 0px;
+  border-radius: 50px;
+  cursor: pointer;
 }
 
 main {
   background-color: var(--main-background-color);
   width: 100vw;
-  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main aside {
+  width: 40%;
+  height: 60vh;
+  padding: 1%;
+}
+
+main article {
+  width: 60%;
+  height: 60vh;
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+main section {
+  width: 100%;
+  height: 60vh;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+aside p {
+  background-color: var(--sub-background-color);
+  height: 100%;
+  border-radius: 5%;
+}
+
+aside img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2%;
+}
+
+.articleHeading {
+  color: var(--company-color);
+  font-size: 300%;
+  width: 100%;
+  border-bottom: 2px solid var(--company-color);
+}
+
+.articleBody {
+  font-size: 115%;
+  font-weight: 400;
+}
+
+.productScrollSection {
+  flex: 1;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.productCard {
+  background-color: var(--sub-background-color);
+  flex: 0 0 25vw;
+  min-width: 25vw;
+  height: 100%;
+  border-radius: 5%;
+  padding: 1%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
 
 footer {
   background-color: black;
+  color: white;
+  text-align: center;
+  padding: 1%;
 }
 
 /* Pantallas pequeñas (móviles) */
@@ -110,16 +183,40 @@ footer {
   .navText {
     font-size: 50%;
   }
+
+  .articleHeading {
+    font-size: 150%;
+  }
+
+  .articleBody {
+    font-size: 60%;
+  }
 }
 /* Pantallas medianas (tablets) */
 @media (min-width: 601px) and (max-width: 1024px) {
   .navText {
     font-size: 150%;
   }
+
+  .articleHeading {
+    font-size: 150%;
+  }
+
+  .articleBody {
+    font-size: 80%;
+  }
 }
 /* Pantallas grandes (escritorios) */
 @media (min-width: 1200px) {
   .navText {
-    font-size: 350%;
+    font-size: 300%;
+  }
+
+  .articleHeading {
+    font-size: 300%;
+  }
+
+  .articleBody {
+    font-size: 115%;
   }
 }

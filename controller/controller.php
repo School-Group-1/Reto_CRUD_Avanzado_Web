@@ -68,5 +68,10 @@ class controller
     {
         return $this->UserModel->get_product_company($id);
     }
+
+    public function delete_product($id)
+    {
+        return $this->UserModel->delete_product($id);
+    }
 }
 ?>

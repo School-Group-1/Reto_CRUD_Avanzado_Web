@@ -244,5 +244,19 @@ private function migrateToHash($profile_code, $password)
 
         return $result;
     }
+
+    public function delete_product($id)
+    {
+        $query = "DELETE P FROM PRODUCT P WHERE P.PRODUCT_ID = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 }
 ?>

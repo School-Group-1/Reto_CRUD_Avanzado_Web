@@ -10,7 +10,7 @@ require_once '../controller/controller.php';
 $id = $_GET['id'] ?? '';
 
 $controller = new controller();
-$result = $controller->delete_user($id);
+$result = $controller->delete_product($id);
 
 if ($result) {
     header("Content-Type: application/json; charset=UTF-8"); 
@@ -18,7 +18,7 @@ if ($result) {
     echo json_encode([
         "success"   => true,
         "code" => 200,
-        "message" => "User deleted successfully.",
+        "message" => "Product deleted successfully.",
         "data" => TRUE
     ]);
 } else {
@@ -27,7 +27,7 @@ if ($result) {
     echo json_encode([
         "success"   => true,
         "code" => 404,
-        "message" => "User not found.",
+        "message" => "Product not found.",
         "data" => FALSE
     ]);
 }

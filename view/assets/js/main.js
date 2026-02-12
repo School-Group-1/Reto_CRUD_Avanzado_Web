@@ -731,6 +731,7 @@ async function log_user_out() {
 }
 
 async function load_product_cards() {
+  let profile = await check_user_logged_in();
   let cardContainer = document.getElementsByClassName(
     "productScrollSection",
   )[0];
@@ -764,17 +765,20 @@ async function load_product_cards() {
       }
 
       cardContainer.appendChild(card);
-      cardDeleteButton = document.getElementById(
-        `${product["NAME"]}DeleteButton`,
-      );
 
-      cardDeleteButton.onclick = async function (event) {
-        //This is to stop the modify popup from displaying, its like telling the parent
-        //That all logic will be handled here and not to worry
-        event.stopPropagation();
+      if (["CURRENT_ACCOUNT"] in profile) {
+        cardDeleteButton = document.getElementById(
+          `${product["NAME"]}DeleteButton`,
+        );
 
-        await delete_product(product["PRODUCT_ID"], card);
-      };
+        cardDeleteButton.onclick = async function (event) {
+          //This is to stop the modify popup from displaying, its like telling the parent
+          //That all logic will be handled here and not to worry
+          event.stopPropagation();
+
+          await delete_product(product["PRODUCT_ID"], card);
+        };
+      }
 
       card.onclick = async function () {
         view_product_details(company, product);
@@ -782,18 +786,20 @@ async function load_product_cards() {
     });
   }
 
-  const addCard = document.createElement("div");
-  addCard.className = "productCard addProductCard";
-  addCard.innerHTML = `
+  if (["CURRENT_ACCOUNT"] in profile) {
+    const addCard = document.createElement("div");
+    addCard.className = "productCard addProductCard";
+    addCard.innerHTML = `
     <div class="addProductPlus">+</div>
   `;
 
-  addCard.onclick = () => {
-    unselect_product();
-    view_product_details();
-  };
+    addCard.onclick = () => {
+      unselect_product();
+      view_product_details();
+    };
 
-  cardContainer.appendChild(addCard);
+    cardContainer.appendChild(addCard);
+  }
 }
 
 async function get_all_products() {
@@ -816,7 +822,11 @@ async function view_product_details(company, product) {
   let profile = await check_user_logged_in();
 
   if (["CARD_NO"] in profile) {
-    window.open(company["URL"], "_blank");
+    if (company) {
+      window.open(company["URL"], "_blank");
+    } else {
+      alert("Este producto no esta registrado a una empresa todavia.");
+    }
   } else if (["CURRENT_ACCOUNT"] in profile) {
     select_product(product);
     await open_product_popup();
@@ -1030,7 +1040,10 @@ async function createProduct(formData) {
 
     if (data.success) {
       alert("El producto ha sido creado correctamente.");
+
       load_product_cards();
+      let modifyProductPopup = document.getElementById("modifyProductPopup");
+      modifyProductPopup.style.display = "none";
     } else {
       alert("Error creando el producto.");
     }

@@ -279,5 +279,22 @@ private function migrateToHash($profile_code, $password)
             return false;
         }
     }
+
+    public function createProduct($name, $price, $product_type, $description, $imageName)
+    {
+        $query = "
+            INSERT INTO PRODUCT (NAME, PRICE, PRODUCT_TYPE, DESCRIPTION, IMAGE, COMPANY_ID)
+            VALUES (?, ?, ?, ?, ?, NULL)
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(1, $name);
+        $stmt->bindValue(2, $price);
+        $stmt->bindValue(3, $product_type);
+        $stmt->bindValue(4, $description);
+        $stmt->bindValue(5, $imageName);
+
+        return $stmt->execute();
+    }
 }
 ?>

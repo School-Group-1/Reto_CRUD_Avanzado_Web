@@ -913,7 +913,19 @@ async function unselect_product() {
     },
     body: JSON.stringify(null),
   });
+
   const data = await response.json();
+
+  if (data["success"]) {
+    const form = document.getElementById("productForm");
+    form.reset();
+
+    const imageInput = document.getElementById("productImageInput");
+    imageInput.value = "";
+
+    const imagePreview = document.getElementById("productFormImageDisplay");
+    imagePreview.src = "https://placehold.co/1000x1000/png";
+  }
 
   return data["success"];
 }
@@ -1009,7 +1021,7 @@ async function createProduct(formData) {
   finalFormData.append("IMAGE_FILE", imageFile);
 
   try {
-    const response = await fetch("../../api/CreateProduct.php", {
+    const response = await fetch("../../api/AddProduct.php", {
       method: "POST",
       body: finalFormData,
     });
@@ -1018,8 +1030,6 @@ async function createProduct(formData) {
 
     if (data.success) {
       alert("El producto ha sido creado correctamente.");
-
-      unload_product_cards();
       load_product_cards();
     } else {
       alert("Error creando el producto.");

@@ -78,5 +78,10 @@ class controller
     {
         return $this->UserModel->modifyProduct($product_id, $name, $price, $product_type, $description, $image);
     }
+
+    public function createProduct($name, $price, $product_type, $description, $imageName)
+    {
+        return $this->UserModel->createProduct($name, $price, $product_type, $description, $imageName);
+    }
 }
 ?>

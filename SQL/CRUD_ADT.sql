@@ -71,8 +71,8 @@ INSERT INTO ADMIN_ (PROFILE_CODE, CURRENT_ACCOUNT) VALUES
 (5, 'ES98-7654-3210-9876-5432');
 
 INSERT INTO COMPANY (COMPANY_ID, C_NAME, NIE, LOCATION, URL) VALUES
-(1, 'UrbanWear', 'NIE-URB-001', 'Madrid', 'https://urbanwear.es'),
-(2, 'TechStyle', 'NIE-TEC-002', 'Barcelona', 'https://techstyle.es');
+(1, 'SuperDry', 'NIE-URB-001', 'Londres', 'https://www.superdry.es/'),
+(2, 'Urban Outfitters', 'NIE-TEC-002', 'Barcelona', 'https://www.urbanoutfitters.com/es-es/whats-new');
 
 INSERT INTO PRODUCT (PRODUCT_ID, NAME, PRICE, PRODUCT_TYPE, DESCRIPTION, IMAGE, COMPANY_ID) VALUES
 (1, 'Basic Hoodie', 39.99, 'Clothing', 'Comfortable cotton hoodie', 'hoodie.jpg', 1),

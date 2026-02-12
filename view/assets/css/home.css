@@ -172,6 +172,8 @@ aside img {
 
 .productCard {
   background-color: var(--sub-background-color);
+  display: flex;
+  flex-direction: column;
   flex: 0 0 25vw;
   min-width: 25vw;
   height: 100%;
@@ -189,6 +191,36 @@ aside img {
 .productCard:hover {
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.productImageContainer {
+  flex-basis: 70%;
+  overflow: hidden;
+  border-radius: 4%;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.productName {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  flex-basis: 15%;
+  font-weight: bold;
+  font-size: x-large;
+  color: var(--company-color);
+  border-bottom: 2px solid var(--company-color);
+}
+
+.productDescription {
+  margin-top: 5px;
+  flex-basis: 15%;
+  font-size: 115%;
 }
 
 footer {

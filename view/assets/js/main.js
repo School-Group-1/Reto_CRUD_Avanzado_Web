@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     log_user_out();
   };
 
+  //Loads product cards
+  load_product_cards();
+
   /* ----------USER POPUP---------- */
   changePwdBtn.onclick = function () {
     changePwdModal.style.display = "block";
@@ -690,4 +693,50 @@ async function log_user_out() {
   if (data["success"]) {
     window.location.href = "login.html";
   }
+}
+
+async function load_product_cards() {
+  let cardContainer = document.getElementsByClassName(
+    "productScrollSection",
+  )[0];
+  let products = await get_all_products();
+  if (products) {
+    products.forEach(async (product) => {
+      let company = await get_product_company(product["COMPANY_ID"]);
+      let card = document.createElement("div");
+      card.className = "productCard";
+      card.innerHTML = `
+        <div class="productImageContainer">
+          <img src="../assets/img/${product["IMAGE"]}" class="productImage"/>
+        </div>
+        <div class="productName">${product["NAME"]}</div>
+        <div class="productDescription">${product["DESCRIPTION"]}</div>
+      `;
+      cardContainer.appendChild(card);
+      card.onclick = async function () {
+        view_company_details(company);
+      };
+    });
+  }
+}
+
+async function get_all_products() {
+  const response = await fetch("../../api/GetAllProducts.php");
+  const data = await response.json();
+
+  return data["data"];
+}
+
+async function get_product_company(product_id) {
+  const response = await fetch(
+    `../../api/GetProductCompany.php?id=${encodeURIComponent(product_id)}`,
+  );
+  const data = await response.json();
+
+  return data["data"][0];
+}
+
+async function view_company_details(company) {
+  console.log(company["URL"]);
+  window.open(company["URL"], "_blank");
 }

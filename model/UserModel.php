@@ -236,7 +236,7 @@ private function migrateToHash($profile_code, $password)
 
     public function get_product_company($id)
     {
-        $query = "SELECT * FROM COMPANY C JOIN PRODUCT P ON P.COMPANY_ID = C.COMPANY_ID WHERE P.COMPANY_ID = :id";
+        $query = "SELECT * FROM COMPANY C JOIN PRODUCT P ON P.COMPANY_ID = C.COMPANY_ID WHERE P.COMPANY_ID = :id LIMIT 1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

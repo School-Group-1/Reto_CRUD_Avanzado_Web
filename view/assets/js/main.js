@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("confirmNewPassword").value;
 
       let hasErrors = false;
-      
+
       if (newPassword != confirmPassword) {
         document.getElementById("messageWrongPassword").innerHTML =
           "The passwords are not the same";
@@ -172,15 +172,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             }),
           });
 
-          console.log("Status:", response.status); 
-          console.log("Headers:", [...response.headers.entries()]); 
-          
-          const text = await response.text(); 
+          console.log("Status:", response.status);
+          console.log("Headers:", [...response.headers.entries()]);
+
+          const text = await response.text();
           console.log("Raw response:", text);
 
           if (data["success"]) {
             actualProfile.PSWD = newPassword;
-            document.getElementById("messageSuccessPassword").innerHTML = "Password correctly changed";
+            document.getElementById("messageSuccessPassword").innerHTML =
+              "Password correctly changed";
             if (["CARD_NO"] in profile) {
               const response = await fetch(`../../api/SetUser.php`, {
                 method: "POST",
@@ -277,21 +278,51 @@ async function modifyUser() {
   const data = await response.json();
   const actualProfile = data["data"];
 
-  const usuario = { profile_code: actualProfile.PROFILE_CODE, password: actualProfile.PSWD, email: actualProfile.EMAIL, username: actualProfile.USER_NAME, telephone: actualProfile.TELEPHONE, name: actualProfile.NAME_, surname: actualProfile.SURNAME, gender: actualProfile.GENDER, card_no: actualProfile.CARD_NO, };
+  const usuario = {
+    profile_code: actualProfile.PROFILE_CODE,
+    password: actualProfile.PSWD,
+    email: actualProfile.EMAIL,
+    username: actualProfile.USER_NAME,
+    telephone: actualProfile.TELEPHONE,
+    name: actualProfile.NAME_,
+    surname: actualProfile.SURNAME,
+    gender: actualProfile.GENDER,
+    card_no: actualProfile.CARD_NO,
+  };
 
   const profile_code = usuario.profile_code;
   const name = document.getElementById("firstNameUser").value;
   const surname = document.getElementById("lastNameUser").value;
   const email = document.getElementById("emailUser").value;
   const username = document.getElementById("usernameUser").value;
-  const telephone = document.getElementById("phoneUser").value.replace(/\s/g, ""); //remove spaces
+  const telephone = document
+    .getElementById("phoneUser")
+    .value.replace(/\s/g, ""); //remove spaces
   const gender = document.getElementById("genderUser").value;
   const card_no = document.getElementById("cardNumberUser").value;
 
-  console.log( "Esto son los datos de los textfields" + profile_code, name, surname, email, username, telephone, gender, card_no);
+  console.log(
+    "Esto son los datos de los textfields" + profile_code,
+    name,
+    surname,
+    email,
+    username,
+    telephone,
+    gender,
+    card_no,
+  );
 
-  if (!name || !surname || !email || !username || !telephone || !gender || !card_no) {
-    document.getElementById("message").innerHTML = "You must fill all the¡¡¡fields";
+  if (
+    !name ||
+    !surname ||
+    !email ||
+    !username ||
+    !telephone ||
+    !gender ||
+    !card_no
+  ) {
+    document.getElementById("message").innerHTML =
+      "You must fill all the¡¡¡fields";
     document.getElementById("message").style.color = "red";
     return;
   }
@@ -300,7 +331,15 @@ async function modifyUser() {
   function hasChanges() {
     let changes = false;
 
-    if ( name !== usuario.name || surname !== usuario.surname || email !== usuario.email || username !== usuario.username || telephone !== usuario.telephone || gender !== usuario.gender || card_no !== usuario.card_no ) {
+    if (
+      name !== usuario.name ||
+      surname !== usuario.surname ||
+      email !== usuario.email ||
+      username !== usuario.username ||
+      telephone !== usuario.telephone ||
+      gender !== usuario.gender ||
+      card_no !== usuario.card_no
+    ) {
       changes = true;
     }
     return changes;
@@ -309,21 +348,20 @@ async function modifyUser() {
   if (!hasChanges()) {
     document.getElementById("message").innerHTML = "No changes detected";
     document.getElementById("message").style.color = "red";
-
   } else {
     try {
       const response = await fetch(
         `../../api/ModifyUser.php?profile_code=${encodeURIComponent(
-          profile_code
+          profile_code,
         )}&name=${encodeURIComponent(name)}&surname=${encodeURIComponent(
-          surname
+          surname,
         )}&email=${encodeURIComponent(email)}&username=${encodeURIComponent(
-          username
+          username,
         )}&telephone=${encodeURIComponent(
-          telephone
+          telephone,
         )}&gender=${encodeURIComponent(gender)}&card_no=${encodeURIComponent(
-          card_no
-        )}`
+          card_no,
+        )}`,
       );
       const dataTest = await response.json();
       console.log(dataTest);
@@ -371,7 +409,6 @@ async function modifyUser() {
           });
         }
       } else {
-      
         document.getElementById("message").innerHTML = data["message"];
         document.getElementById("message").style.color = "red";
       }
@@ -393,7 +430,7 @@ async function delete_user_admin(id) {
   if (!confirm("Are you sure you want to delete this user?")) return;
 
   const response = await fetch(
-    `../../api/DeleteUser.php?id=${encodeURIComponent(id)}`
+    `../../api/DeleteUser.php?id=${encodeURIComponent(id)}`,
   );
 
   const data = await response.json();
@@ -482,7 +519,8 @@ async function openModifyAdminPopup() {
   document.getElementById("firstNameAdmin").value = usuario.name;
   document.getElementById("lastNameAdmin").value = usuario.surname;
   document.getElementById("profileCodeAdmin").value = usuario.profile_code;
-  document.getElementById("currentAccountAdmin").value = usuario.current_account;
+  document.getElementById("currentAccountAdmin").value =
+    usuario.current_account;
 
   modifyAdminPopup.style.display = "flex";
 }
@@ -514,13 +552,31 @@ async function modifyAdmin() {
   const surname = document.getElementById("lastNameAdmin").value;
   const email = document.getElementById("emailAdmin").value;
   const username = document.getElementById("usernameAdmin").value;
-  const telephone = document.getElementById("phoneAdmin").value.replace(/\s/g, ""); //remove spaces
+  const telephone = document
+    .getElementById("phoneAdmin")
+    .value.replace(/\s/g, ""); //remove spaces
   const current_account = document.getElementById("currentAccountAdmin").value;
 
-  console.log( "Esto son los datos de los textfields" + profile_code, name, surname, email, username, telephone, current_account );
+  console.log(
+    "Esto son los datos de los textfields" + profile_code,
+    name,
+    surname,
+    email,
+    username,
+    telephone,
+    current_account,
+  );
 
-  if ( !name || !surname || !email || !username || !telephone || !current_account ) {
-    document.getElementById("messageAdmin").innerHTML = "You must fill all the fields";
+  if (
+    !name ||
+    !surname ||
+    !email ||
+    !username ||
+    !telephone ||
+    !current_account
+  ) {
+    document.getElementById("messageAdmin").innerHTML =
+      "You must fill all the fields";
     document.getElementById("messageAdmin").style.color = "red";
     return;
   }
@@ -529,7 +585,14 @@ async function modifyAdmin() {
   function hasChanges() {
     let changes = false;
 
-    if ( name !== usuario.name || surname !== usuario.surname || email !== usuario.email || username !== usuario.username || telephone !== usuario.telephone || current_account !== usuario.current_account ) {
+    if (
+      name !== usuario.name ||
+      surname !== usuario.surname ||
+      email !== usuario.email ||
+      username !== usuario.username ||
+      telephone !== usuario.telephone ||
+      current_account !== usuario.current_account
+    ) {
       changes = true;
     }
     return changes;
@@ -540,7 +603,9 @@ async function modifyAdmin() {
     document.getElementById("messageAdmin").style.color = "red";
   } else {
     try {
-      const response = await fetch( `../../api/ModifyAdmin.php?profile_code=${encodeURIComponent( profile_code )}&name=${encodeURIComponent(name)}&surname=${encodeURIComponent( surname )}&email=${encodeURIComponent(email)}&username=${encodeURIComponent( username )}&telephone=${encodeURIComponent( telephone )}&current_account=${encodeURIComponent(current_account)}` );
+      const response = await fetch(
+        `../../api/ModifyAdmin.php?profile_code=${encodeURIComponent(profile_code)}&name=${encodeURIComponent(name)}&surname=${encodeURIComponent(surname)}&email=${encodeURIComponent(email)}&username=${encodeURIComponent(username)}&telephone=${encodeURIComponent(telephone)}&current_account=${encodeURIComponent(current_account)}`,
+      );
 
       const data = await response.json();
       console.log(data);
@@ -590,13 +655,16 @@ function resetPasswordModal() {
 async function delete_user(id) {
   if (!confirm("Are you sure you want to your account?")) return;
 
-  const response = await fetch( `../../api/DeleteUser.php?id=${encodeURIComponent(id)}` );
+  const response = await fetch(
+    `../../api/DeleteUser.php?id=${encodeURIComponent(id)}`,
+  );
 
   const data = await response.json();
 
   if (!data["success"]) {
     console.log("Error deleting user: ", data["message"]);
   } else {
+    log_user_out();
     window.location.href = "login.html";
   }
 }

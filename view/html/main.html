@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/home.css" />
     <script src="../assets/js/main.js"></script>
   </head>
@@ -13,7 +14,7 @@
         <img src="../assets/img/logo.png" class="logo" />
       </div>
       <div class="headerButtons">
-        <div>
+        <div id="adjustData">
           <svg
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +42,7 @@
             </g>
           </svg>
         </div>
-        <div>
+        <div id="logoutBtn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -101,7 +102,7 @@
       </article>
       <section>
         <h2 class="articleHeading">Nuestros Productos</h2>
-        <br/>
+        <br />
         <div class="productScrollSection">
           <div class="productCard">f</div>
           <div class="productCard">f</div>
@@ -109,6 +110,264 @@
           <div class="productCard">f</div>
         </div>
       </section>
+
+      <!-- The Modal -->
+      <div id="adminTableModal" class="adminTableModal">
+        <!-- Modal content -->
+        <div class="adminTableModalContent">
+          <div class="flex-space-between">
+            <button id="modifySelfButton" class="modifySelfButton">
+              Modify Self
+            </button>
+            <span class="close">&times;</span>
+          </div>
+
+          <table class="adminTable" id="adminTable">
+            <tr class="adminTableHead">
+              <th>Username</th>
+              <th>Card Number</th>
+              <th></th>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div id="modifyUserPopupAdmin" class="modifyUserPopupAdmin">
+        <div class="popupCard">
+          <form class="profileForm" id="profileForm">
+            <div class="profileHeader">
+              <div class="avatar">
+                <img src="https://placehold.co/280x280/png" alt="avatar" />
+              </div>
+              <div class="infoArea">
+                <div class="fields">
+                  <div class="field half">
+                    <label for="firstName">Name</label>
+                    <input
+                      id="firstNameUser"
+                      name="firstName"
+                      type="text"
+                      placeholder="John"
+                    />
+                  </div>
+                  <div class="field half">
+                    <label for="lastName">Surname</label>
+                    <input
+                      id="lastNameUser"
+                      name="lastName"
+                      type="text"
+                      placeholder="Doe"
+                    />
+                  </div>
+                  <div class="field full">
+                    <label for="email">Email</label>
+                    <input
+                      id="emailUser"
+                      name="email"
+                      type="email"
+                      placeholder="example@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field half">
+                <label for="username">Username</label>
+                <input
+                  id="usernameUser"
+                  name="username"
+                  type="text"
+                  placeholder="Example"
+                  disabled
+                />
+              </div>
+
+              <div class="field half">
+                <label for="password">Password</label>
+                <button type="button" id="changePwdBtn" class="changePwdBtn">
+                  Change Password
+                </button>
+              </div>
+              <div class="field half">
+                <label for="phone">Phone Number</label>
+                <input
+                  id="phoneUser"
+                  name="phone"
+                  type="number"
+                  placeholder="000-000-0000"
+                />
+              </div>
+              <div class="field half">
+                <label for="gender">Gender</label>
+                <select name="gender" id="genderUser" class="gender">
+                  <option value="Man">Man</option>
+                  <option value="Female">Woman</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="cardNumber">Card Number</label>
+                <input
+                  id="cardNumberUser"
+                  name="cardNumber"
+                  type="text"
+                  placeholder="XXXX-XXXX-XXXX-XXXX"
+                />
+              </div>
+            </div>
+            <span style="color: green" ; id="message"></span>
+            <div class="actions">
+              <button id="deleteBtn" class="deleteBtn" type="button">
+                Delete Account
+              </button>
+              <button class="saveBtn" type="button" id="saveBtnUser">
+                Save Data
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="modifyAdminPopup" class="modifyAdminPopup">
+        <div class="popupCard">
+          <form class="loginForm profileForm" id="profileForm">
+            <div class="profileHeader">
+              <div class="avatar">
+                <img src="https://placehold.co/280x280/png" alt="avatar" />
+              </div>
+              <div class="infoArea">
+                <div class="fields">
+                  <div class="field half">
+                    <label for="firstName">Name</label>
+                    <input
+                      id="firstNameAdmin"
+                      name="firstName"
+                      type="text"
+                      placeholder="John"
+                    />
+                  </div>
+                  <div class="field half">
+                    <label for="lastName">Surname</label>
+                    <input
+                      id="lastNameAdmin"
+                      name="lastName"
+                      type="text"
+                      placeholder="Doe"
+                    />
+                  </div>
+                  <div class="field full">
+                    <label for="email">Email</label>
+                    <input
+                      id="emailAdmin"
+                      name="email"
+                      type="email"
+                      placeholder="example@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field half">
+                <label for="username">Username</label>
+                <input
+                  id="usernameAdmin"
+                  name="username"
+                  type="text"
+                  placeholder="Example"
+                  disabled
+                />
+              </div>
+
+              <div class="field half">
+                <label for="password">Password</label>
+                <button
+                  type="button"
+                  id="changePwdBtnAdmin"
+                  class="changePwdBtn"
+                >
+                  Change Password
+                </button>
+              </div>
+              <div class="field half">
+                <label for="phone">Phone Number</label>
+                <input
+                  id="phoneAdmin"
+                  name="phone"
+                  type="number"
+                  placeholder="000-000-0000"
+                />
+              </div>
+              <div class="field half">
+                <label for="profileCode">Profile Code</label>
+                <input
+                  id="profileCodeAdmin"
+                  name="profileCode"
+                  type="tel"
+                  placeholder="x"
+                  disabled="disabled"
+                />
+              </div>
+              <div class="field full">
+                <label for="accountNumber">Account Number</label>
+                <input
+                  id="currentAccountAdmin"
+                  name="accountNumber"
+                  type="text"
+                  placeholder="XXXX-XXXX-XXXX-XXXX"
+                />
+              </div>
+            </div>
+            <span style="color: green" ; id="messageAdmin"></span>
+            <div class="actions">
+              <button id="saveBtnAdmin" class="saveBtn" type="button">
+                Save Data
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="changePasswordModal" class="changePasswordModal">
+        <div class="changePasswordModalContent">
+          <span class="closePasswordSpan">&times;</span>
+          <h2>Change Password</h2>
+          <form id="changePasswordForm">
+            <label for="currentPassword">Actual Password</label>
+            <input
+              type="password"
+              id="currentPassword"
+              name="currentPassword"
+              required
+            />
+            <span style="color: red" ; id="messageOldPassword"></span>
+
+            <label for="newPassword">New Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              required
+            />
+
+            <label for="confirmNewPassword">Repeat Password</label>
+            <input
+              type="password"
+              id="confirmNewPassword"
+              name="confirmNewPassword"
+              required
+            />
+            <span style="color: red" ; id="messageWrongPassword"></span>
+
+            <span style="color: green" ; id="messageSuccessPassword"></span>
+            <button type="submit">Confirm</button>
+          </form>
+          <div id="passwordMessage" class="passwordMessage"></div>
+        </div>
+      </div>
     </main>
     <footer>© 2026 - El Corte Ingles</footer>
   </body>

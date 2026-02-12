@@ -734,6 +734,7 @@ async function load_product_cards() {
   let cardContainer = document.getElementsByClassName(
     "productScrollSection",
   )[0];
+  cardContainer.innerHTML = "";
   let products = await get_all_products();
   if (products) {
     products.forEach(async (product) => {
@@ -780,13 +781,19 @@ async function load_product_cards() {
       };
     });
   }
-}
 
-async function unload_product_cards() {
-  let cardContainer = document.getElementsByClassName(
-    "productScrollSection",
-  )[0];
-  cardContainer.innerHTML = "";
+  const addCard = document.createElement("div");
+  addCard.className = "productCard addProductCard";
+  addCard.innerHTML = `
+    <div class="addProductPlus">+</div>
+  `;
+
+  addCard.onclick = () => {
+    unselect_product();
+    view_product_details();
+  };
+
+  cardContainer.appendChild(addCard);
 }
 
 async function get_all_products() {
@@ -866,6 +873,8 @@ async function updateCreateProduct() {
   const formData = new FormData(document.getElementById("productForm"));
   if (actualProduct) {
     modifyProduct(actualProduct, formData);
+  } else {
+    createProduct(formData);
   }
 }
 
@@ -947,7 +956,6 @@ async function modifyProduct(originalProduct, formData) {
 
     if (data["success"]) {
       alert("El producto ha sido modificado.");
-      unload_product_cards();
       load_product_cards();
 
       const response = await fetch(`../../api/SetProduct.php`, {
@@ -962,5 +970,62 @@ async function modifyProduct(originalProduct, formData) {
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+async function createProduct(formData) {
+  const name = formData.get("productName");
+  const price = formData.get("productPrice");
+  const productType = formData.get("productCategory");
+  const description = formData.get("productDescription");
+  const imageFile = formData.get("productImageInput");
+
+  if (
+    !name ||
+    !price ||
+    !productType ||
+    !description ||
+    !imageFile ||
+    imageFile.size === 0
+  ) {
+    alert("Por favor, rellena todos los campos y selecciona una imagen.");
+    return;
+  }
+
+  const product = {
+    NAME: name,
+    PRICE: price,
+    PRODUCT_TYPE: productType,
+    DESCRIPTION: description,
+    IMAGE: imageFile.name,
+  };
+
+  const finalFormData = new FormData();
+  finalFormData.append("NAME", product.NAME);
+  finalFormData.append("PRICE", product.PRICE);
+  finalFormData.append("PRODUCT_TYPE", product.PRODUCT_TYPE);
+  finalFormData.append("DESCRIPTION", product.DESCRIPTION);
+  finalFormData.append("IMAGE_NAME", product.IMAGE);
+  finalFormData.append("IMAGE_FILE", imageFile);
+
+  try {
+    const response = await fetch("../../api/CreateProduct.php", {
+      method: "POST",
+      body: finalFormData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("El producto ha sido creado correctamente.");
+
+      unload_product_cards();
+      load_product_cards();
+    } else {
+      alert("Error creando el producto.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Error de conexión al crear el producto.");
   }
 }

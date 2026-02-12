@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* ----------HOME---------- */
   const homeBtn = document.getElementById("adjustData");
   const logoutBtn = document.getElementById("logoutBtn");
+  const contactButton = document.getElementById("contactButton");
 
   /* ----------USER POPUP---------- */
   const modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ----------ADMIN POPUP---------- */
   const modifyAdminPopup = document.getElementById("modifyAdminPopup");
+  const modifyCompanyPopup = document.getElementById("modifyCompanyPopup");
   const closeAdminSpan = document.getElementsByClassName("close")[0];
   const changePwdBtnAdmin = document.getElementById("changePwdBtnAdmin");
   const adminTableModal = document.getElementById("adminTableModal");
@@ -103,15 +105,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   //If a popup is clicked outside of the actual area, automatically close the popup
   window.onclick = function (event) {
-    if (event.target == adminTableModal) {
-      adminTableModal.style.display = "none";
-    } else if (event.target == modifyUserPopup) {
-      modifyUserPopup.style.display = "none";
-    } else if (event.target == modifyAdminPopup) {
-      modifyAdminPopup.style.display = "none";
-    } else if (event.target == changePwdModal) {
-      changePwdModal.style.display = "none";
+    switch (event.target) {
+      case adminTableModal:
+        adminTableModal.style.display = "none";
+        break;
+      case modifyUserPopup:
+        modifyUserPopup.style.display = "none";
+        break;
+      case modifyAdminPopup:
+        modifyAdminPopup.style.display = "none";
+        break;
+      case changePwdModal:
+        changePwdModal.style.display = "none";
+        break;
+      case modifyCompanyPopup:
+        modifyCompanyPopup.style.display = "none";
+        break;
     }
+  };
+
+  //Makes the contact button open a link, didnt want to touch the CSS to wrap it in a <a> so this is the lazy solution
+  contactButton.onclick = function () {
+    window.open(
+      "https://www.linkedin.com/in/mosi-hickman-blanco-093623349/",
+      "_blank",
+    );
   };
 
   //Change password popup functionality, inside this initial on document loaded method as it relies on the
@@ -712,7 +730,34 @@ async function load_product_cards() {
         <div class="productName">${product["NAME"]}</div>
         <div class="productDescription">${product["DESCRIPTION"]}</div>
       `;
+
+      let profile = await check_user_logged_in();
+      if (["CURRENT_ACCOUNT"] in profile) {
+        card.innerHTML += `
+          <div class="productDeleteButton" id="${product["NAME"]}DeleteButton">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+            </svg>
+          </div>
+        `;
+      }
+
       cardContainer.appendChild(card);
+      cardDeleteButton = document.getElementById(
+        `${product["NAME"]}DeleteButton`,
+      );
+
+      cardDeleteButton.onclick = async function (event) {
+        //This is to stop the modify popup from displaying, its like telling the parent
+        //That all logic will be handled here and not to worry
+        event.stopPropagation();
+
+        await delete_product(product["PRODUCT_ID"], card);
+      };
+
       card.onclick = async function () {
         view_company_details(company);
       };
@@ -737,6 +782,32 @@ async function get_product_company(product_id) {
 }
 
 async function view_company_details(company) {
-  console.log(company["URL"]);
-  window.open(company["URL"], "_blank");
+  let profile = await check_user_logged_in();
+
+  if (["CARD_NO"] in profile) {
+    window.open(company["URL"], "_blank");
+  } else if (["CURRENT_ACCOUNT"] in profile) {
+    open_company_popup();
+  }
+}
+
+function open_company_popup() {
+  let modifyCompanyPopup = document.getElementById("modifyCompanyPopup");
+  modifyCompanyPopup.style.display = "flex";
+}
+
+async function delete_product(product_id, product_card) {
+  if (confirm("¿Seguro que quieres eliminar este producto?")) {
+    const response = await fetch(
+      `../../api/DeleteProduct.php?id=${encodeURIComponent(product_id)}`,
+    );
+    const data = await response.json();
+
+    if (!data["success"]) {
+      console.log("Error deleting product: ", data["message"]);
+    } else {
+      alert("Producto eliminado.");
+      product_card.remove();
+    }
+  }
 }

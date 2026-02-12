@@ -19,7 +19,7 @@ body {
   box-sizing: border-box;
 }
 
-header {
+nav {
   width: 100vw;
   height: 7vh;
   position: fixed;
@@ -31,7 +31,7 @@ header {
   justify-content: space-between;
 }
 
-header div {
+nav div {
   padding: 10px;
 }
 
@@ -39,22 +39,22 @@ header div {
   height: 100%;
 }
 
-.headerButtons {
+.navButtons {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.headerButtons div {
+.navButtons div {
   width: auto;
 }
 
-.headerButtons svg {
+.navButtons svg {
   height: 40px;
   cursor: pointer;
 }
 
-nav {
+header {
   width: 100vw;
   height: 70vh;
   background-image: url("../img/banner.jpg");
@@ -68,7 +68,7 @@ nav {
   flex-direction: column;
 }
 
-.navText {
+.headerText {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -78,11 +78,11 @@ nav {
   padding-left: 15%;
 }
 
-.navText span {
+.headerText span {
   color: var(--company-color);
 }
 
-.navText button {
+.headerText button {
   margin-top: 2%;
   width: 25%;
   height: 10%;
@@ -99,7 +99,7 @@ nav {
     box-shadow 0.3s ease-in-out;
 }
 
-.navText button:hover {
+.headerText button:hover {
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -171,6 +171,7 @@ aside img {
 }
 
 .productCard {
+  position: relative;
   background-color: var(--sub-background-color);
   display: flex;
   flex-direction: column;
@@ -223,6 +224,23 @@ aside img {
   font-size: 115%;
 }
 
+.productDeleteButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  width: 26px;
+  height: 26px;
+
+  color: var(--company-color);
+  opacity: 0.85;
+}
+
+.productDeleteButton svg {
+  width: 100%;
+  height: 100%;
+}
+
 footer {
   background-color: black;
   color: white;
@@ -231,8 +249,17 @@ footer {
 }
 
 /*MODAL POPUPS*/
-/*-----Admin Page CSS-----*/
-/*Modal*/
+.modifyCompanyPopup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999;
+}
+
 .adminTableModal {
   display: none;
   position: fixed;
@@ -269,7 +296,6 @@ footer {
   z-index: 999;
 }
 
-/* Modal Content */
 .adminTableModalContent {
   background-color: #fefefe;
   margin: auto;
@@ -280,7 +306,6 @@ footer {
   height: 80%;
 }
 
-/* The Close Button */
 .close {
   color: #aaaaaa;
   float: right;
@@ -606,7 +631,7 @@ footer {
 /*MEDIA QUERIES*/
 /* Pantallas pequeñas (móviles) */
 @media (max-width: 600px) {
-  .navText {
+  .headerText {
     font-size: 50%;
   }
 
@@ -620,7 +645,7 @@ footer {
 }
 /* Pantallas medianas (tablets) */
 @media (min-width: 601px) and (max-width: 1024px) {
-  .navText {
+  .headerText {
     font-size: 150%;
   }
 
@@ -638,7 +663,7 @@ footer {
 }
 /* Pantallas grandes (escritorios) */
 @media (min-width: 1200px) {
-  .navText {
+  .headerText {
     font-size: 300%;
   }
 

@@ -114,7 +114,7 @@
             <button id="modifySelfButton" class="modifySelfButton">
               Modify Self
             </button>
-            <span class="close">&times;</span>
+            <span class="close" id="closeAdminPopup">&times;</span>
           </div>
 
           <table class="adminTable" id="adminTable">
@@ -129,7 +129,7 @@
 
       <div id="modifyUserPopupAdmin" class="modifyUserPopupAdmin">
         <div class="popupCard">
-          <form class="profileForm" id="profileForm">
+          <form class="modalForm" id="profileForm">
             <div class="profileHeader">
               <div class="avatar">
                 <img src="https://placehold.co/280x280/png" alt="avatar" />
@@ -227,7 +227,7 @@
 
       <div id="modifyAdminPopup" class="modifyAdminPopup">
         <div class="popupCard">
-          <form class="loginForm profileForm" id="profileForm">
+          <form class="modalForm" id="profileForm">
             <div class="profileHeader">
               <div class="avatar">
                 <img src="https://placehold.co/280x280/png" alt="avatar" />
@@ -364,63 +364,72 @@
         </div>
       </div>
 
-      <div id="modifyCompanyPopup" class="modifyAdminPopup">
-        <div class="popupCard">
-          <form class="loginForm profileForm" id="profileForm">
-            <div class="fields">
-              <div class="field half">
-                <label for="username">Username</label>
-                <input
-                  id="usernameAdmin"
-                  name="username"
-                  type="text"
-                  placeholder="Example"
-                  disabled
-                />
-              </div>
-
-              <div class="field half">
-                <label for="password">Password</label>
-                <button
-                  type="button"
-                  id="changePwdBtnAdmin"
-                  class="changePwdBtn"
-                >
-                  Change Password
-                </button>
-              </div>
-              <div class="field half">
-                <label for="phone">Phone Number</label>
-                <input
-                  id="phoneAdmin"
-                  name="phone"
-                  type="number"
-                  placeholder="000-000-0000"
-                />
-              </div>
-              <div class="field half">
-                <label for="profileCode">Profile Code</label>
-                <input
-                  id="profileCodeAdmin"
-                  name="profileCode"
-                  type="tel"
-                  placeholder="x"
-                  disabled="disabled"
-                />
-              </div>
-              <div class="field full">
-                <label for="accountNumber">Account Number</label>
-                <input
-                  id="currentAccountAdmin"
-                  name="accountNumber"
-                  type="text"
-                  placeholder="XXXX-XXXX-XXXX-XXXX"
-                />
-              </div>
+      <div id="modifyProductPopup" class="productPopup">
+        <div class="productPopupCard">
+          <span class="close" id="closeProductPopup">&times;</span>
+          <!--Enctype parameter is added to this form since files are going to be uploaded in it, its to 
+          simplify the logic in PHP-->
+          <form
+            class="modalForm productForm"
+            id="productForm"
+            enctype="multipart/form-data"
+          >
+            <div class="picture">
+              <img
+                src="https://placehold.co/1000x1000/png"
+                alt="Product Image"
+                id="productFormImageDisplay"
+              />
             </div>
-            <span style="color: green" ; id="messageAdmin"></span>
-            <div class="actions">
-              <button id="saveBtnAdmin" class="saveBtn" type="button">
+            <div class="pictureInput">
+              <input
+                type="file"
+                name="image"
+                id="productImageInput"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="name">
+              <label for="productName">Nombre</label>
+              <input
+                id="productName"
+                name="productName"
+                type="text"
+                placeholder="Example"
+              />
+            </div>
+            <div class="price">
+              <label for="productPrice">Precio</label>
+              <input
+                id="productPrice"
+                name="productPrice"
+                type="number"
+                step="0.50"
+                min="0"
+                placeholder="Example"
+              />
+            </div>
+            <div class="category">
+              <label for="productCategory">Categoría</label>
+              <input
+                id="productCategory"
+                name="productCategory"
+                type="text"
+                placeholder="Example"
+              />
+            </div>
+            <div class="description">
+              <label for="productDescription">Descripción</label>
+              <input
+                id="productDescription"
+                name="productDescription"
+                type="text"
+                placeholder="Example"
+              />
+            </div>
+            <div class="submit">
+              <button id="saveBtnProduct" class="saveBtn" type="button">
                 Save Data
               </button>
             </div>

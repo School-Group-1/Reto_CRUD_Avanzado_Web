@@ -249,6 +249,36 @@ footer {
 }
 
 /*MODAL POPUPS*/
+.modalForm {
+  width: 100%;
+  background: transparent;
+}
+
+.modalForm input,
+.modalForm select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.modalForm button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #101416;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modalForm button:hover {
+  background-color: #005fa3;
+}
+
 .modifyCompanyPopup {
   display: none;
   position: fixed;
@@ -402,37 +432,6 @@ footer {
   border-radius: 18px;
   border: 4px black solid;
   padding: 24px;
-}
-
-.profileForm {
-  width: 100%;
-  padding: 10px;
-  max-width: 100%;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-}
-
-.profileForm input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-}
-
-.profileForm button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 10px;
-  background-color: #222020;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-}
-.profileForm button:hover {
-  background-color: #005fa3;
 }
 
 .profileHeader {
@@ -626,6 +625,86 @@ footer {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+/*PRODUCT POPUP-FORM*/
+.productPopup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999;
+}
+
+.productPopupCard {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--sub-background-color, #f1f1f1);
+  border-radius: 18px;
+  border: 4px black solid;
+  padding: 24px;
+}
+
+.productForm {
+  flex: 1;
+  height: 80%;
+  display: grid;
+  grid-template-areas:
+    "picture picture picture"
+    "pictureInput name price"
+    "category description description"
+    "submit submit submit";
+  grid-template-columns: 1.5fr 2.5fr 2fr;
+  grid-template-rows: 3fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+.productForm label {
+  font-weight: bold;
+}
+.productForm div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+.productForm div.picture {
+  grid-area: picture;
+  overflow: hidden;
+  min-height: 0;
+  align-items: center;
+}
+.productForm div.pictureInput {
+  grid-area: pictureInput;
+  overflow: hidden;
+  min-height: 0;
+  align-items: center;
+}
+.productForm div.name {
+  grid-area: name;
+}
+.productForm div.price {
+  grid-area: price;
+}
+.productForm div.category {
+  grid-area: category;
+}
+.productForm div.description {
+  grid-area: description;
+}
+.productForm div.submit {
+  grid-area: submit;
+}
+
+.picture img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 /*MEDIA QUERIES*/

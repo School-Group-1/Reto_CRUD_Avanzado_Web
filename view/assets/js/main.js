@@ -18,12 +18,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ----------ADMIN POPUP---------- */
   const modifyAdminPopup = document.getElementById("modifyAdminPopup");
-  const modifyCompanyPopup = document.getElementById("modifyCompanyPopup");
-  const closeAdminSpan = document.getElementsByClassName("close")[0];
+  const modifyProductPopup = document.getElementById("modifyProductPopup");
+  const closeAdminSpan = document.getElementById("closeAdminPopup");
+  const closeProductPopup = document.getElementById("closeProductPopup");
   const changePwdBtnAdmin = document.getElementById("changePwdBtnAdmin");
   const adminTableModal = document.getElementById("adminTableModal");
   const modifyAdminBtn = document.getElementById("modifySelfButton");
   const saveBtnAdmin = document.getElementById("saveBtnAdmin");
+  const saveBtnProduct = document.getElementById("saveBtnProduct");
+  const productImageInput = document.getElementById("productImageInput");
+  const productFormImageDisplay = document.getElementById(
+    "productFormImageDisplay",
+  );
 
   /* ----------SHARED ELEMENTS---------- */
   const changePwdModal = document.getElementById("changePasswordModal");
@@ -81,6 +87,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     adminTableModal.style.display = "none";
   };
 
+  closeProductPopup.onclick = function () {
+    modifyProductPopup.style.display = "none";
+  };
+
   changePwdBtnAdmin.onclick = function () {
     changePwdModal.style.display = "block";
     resetPasswordModal();
@@ -92,6 +102,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   saveBtnAdmin.onclick = function () {
     modifyAdmin();
+  };
+
+  saveBtnProduct.onclick = async function () {
+    await updateCreateProduct();
+  };
+
+  //Previews the new product image in the box
+  productImageInput.onchange = (e) => {
+    productFormImageDisplay.src = URL.createObjectURL(e.target.files[0]);
   };
 
   /* ----------SHARED ELEMENTS---------- */
@@ -118,8 +137,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       case changePwdModal:
         changePwdModal.style.display = "none";
         break;
-      case modifyCompanyPopup:
-        modifyCompanyPopup.style.display = "none";
+      case modifyProductPopup:
+        modifyProductPopup.style.display = "none";
         break;
     }
   };
@@ -787,13 +806,13 @@ async function view_company_details(company) {
   if (["CARD_NO"] in profile) {
     window.open(company["URL"], "_blank");
   } else if (["CURRENT_ACCOUNT"] in profile) {
-    open_company_popup();
+    open_product_popup();
   }
 }
 
-function open_company_popup() {
-  let modifyCompanyPopup = document.getElementById("modifyCompanyPopup");
-  modifyCompanyPopup.style.display = "flex";
+function open_product_popup() {
+  let modifyProductPopup = document.getElementById("modifyProductPopup");
+  modifyProductPopup.style.display = "flex";
 }
 
 async function delete_product(product_id, product_card) {
@@ -810,4 +829,8 @@ async function delete_product(product_id, product_card) {
       product_card.remove();
     }
   }
+}
+
+async function updateCreateProduct() {
+  const formData = new FormData(document.getElementById("productForm"));
 }

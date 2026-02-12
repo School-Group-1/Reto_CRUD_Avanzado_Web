@@ -565,8 +565,6 @@ async function openModifyAdminPopup() {
   modifyAdminPopup.style.display = "flex";
 }
 
-async function openModifyUserPopupAdmin(user) {}
-
 async function modifyAdmin() {
   const response = await fetch("../../api/GetProfile.php", {
     method: "GET",
@@ -778,10 +776,17 @@ async function load_product_cards() {
       };
 
       card.onclick = async function () {
-        view_company_details(company);
+        view_product_details(company, product);
       };
     });
   }
+}
+
+async function unload_product_cards() {
+  let cardContainer = document.getElementsByClassName(
+    "productScrollSection",
+  )[0];
+  cardContainer.innerHTML = "";
 }
 
 async function get_all_products() {
@@ -800,17 +805,36 @@ async function get_product_company(product_id) {
   return data["data"][0];
 }
 
-async function view_company_details(company) {
+async function view_product_details(company, product) {
   let profile = await check_user_logged_in();
 
   if (["CARD_NO"] in profile) {
     window.open(company["URL"], "_blank");
   } else if (["CURRENT_ACCOUNT"] in profile) {
-    open_product_popup();
+    select_product(product);
+    await open_product_popup();
   }
 }
 
-function open_product_popup() {
+async function open_product_popup() {
+  const response = await fetch("../../api/GetProduct.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+  const actualProduct = data["data"];
+
+  if (actualProduct) {
+    document.getElementById("productFormImageDisplay").src =
+      `../assets/img/${actualProduct["IMAGE"]}`;
+    document.getElementById("productName").value = actualProduct["NAME"];
+    document.getElementById("productPrice").value = actualProduct["PRICE"];
+    document.getElementById("productCategory").value =
+      actualProduct["PRODUCT_TYPE"];
+    document.getElementById("productDescription").value =
+      actualProduct["DESCRIPTION"];
+  }
+
   let modifyProductPopup = document.getElementById("modifyProductPopup");
   modifyProductPopup.style.display = "flex";
 }
@@ -832,5 +856,111 @@ async function delete_product(product_id, product_card) {
 }
 
 async function updateCreateProduct() {
+  const response = await fetch("../../api/GetProduct.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+  const actualProduct = data["data"];
+
   const formData = new FormData(document.getElementById("productForm"));
+  if (actualProduct) {
+    modifyProduct(actualProduct, formData);
+  }
+}
+
+async function check_product_selected() {
+  const response = await fetch("../../api/GetProduct.php", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
+
+  if (!data["success"]) {
+    return null;
+  } else {
+    return data["data"];
+  }
+}
+
+async function select_product(product) {
+  const response = await fetch(`../../api/SetProduct.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
+  const data = await response.json();
+
+  return data["success"];
+}
+
+async function unselect_product() {
+  const response = await fetch(`../../api/SetProduct.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(null),
+  });
+  const data = await response.json();
+
+  return data["success"];
+}
+
+async function modifyProduct(originalProduct, formData) {
+  //The image field checks to see if the user has inserted a new image, if they havent then it just puts the original file name
+  const product = {
+    PRODUCT_ID: originalProduct["PRODUCT_ID"],
+    NAME: formData.get("productName"),
+    PRICE: formData.get("productPrice"),
+    PRODUCT_TYPE: formData.get("productCategory"),
+    DESCRIPTION: formData.get("productDescription"),
+    IMAGE:
+      formData.get("productImageInput")?.size > 0
+        ? formData.get("productImageInput").name
+        : originalProduct["IMAGE"],
+  };
+
+  const finalFormData = new FormData();
+  finalFormData.append("PRODUCT_ID", product.PRODUCT_ID);
+  finalFormData.append("NAME", product.NAME);
+  finalFormData.append("PRICE", product.PRICE);
+  finalFormData.append("PRODUCT_TYPE", product.PRODUCT_TYPE);
+  finalFormData.append("DESCRIPTION", product.DESCRIPTION);
+  finalFormData.append("IMAGE_NAME", product.IMAGE);
+
+  console.log(finalFormData);
+
+  const imageFile = formData.get("productImageInput");
+  if (imageFile && imageFile.size > 0) {
+    finalFormData.append("IMAGE_FILE", imageFile);
+  }
+
+  try {
+    const response = await fetch(`../../api/ModifyProduct.php`, {
+      method: "POST",
+      body: finalFormData,
+    });
+    const data = await response.json();
+
+    if (data["success"]) {
+      alert("El producto ha sido modificado.");
+      unload_product_cards();
+      load_product_cards();
+
+      const response = await fetch(`../../api/SetProduct.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+    } else {
+      alert("Error modificando el producto");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

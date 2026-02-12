@@ -680,8 +680,6 @@ footer {
 }
 .productForm div.pictureInput {
   grid-area: pictureInput;
-  overflow: hidden;
-  min-height: 0;
   align-items: center;
 }
 .productForm div.name {

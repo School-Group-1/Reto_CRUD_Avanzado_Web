@@ -73,5 +73,10 @@ class controller
     {
         return $this->UserModel->delete_product($id);
     }
+
+    public function modifyProduct($product_id, $name, $price, $product_type, $description, $image) 
+    {
+        return $this->UserModel->modifyProduct($product_id, $name, $price, $product_type, $description, $image);
+    }
 }
 ?>

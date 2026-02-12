@@ -258,5 +258,26 @@ private function migrateToHash($profile_code, $password)
             return FALSE;
         }
     }
+
+    public function modifyProduct($product_id, $name, $price, $product_type, $description, $image)
+    {
+        $query = "UPDATE PRODUCT P 
+        SET P.NAME = :product_name, P.PRICE = :price, P.PRODUCT_TYPE = :product_type, P.DESCRIPTION = :product_description, P.IMAGE = :product_image
+        WHERE P.PRODUCT_ID = :product_id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindparam(':product_id', $product_id);
+        $stmt->bindparam(':product_name', $name);
+        $stmt->bindparam(':price', $price);
+        $stmt->bindparam(':product_type', $product_type);
+        $stmt->bindparam(':product_description', $description);
+        $stmt->bindparam(':product_image', $image);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
